@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers - SMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    
+    <div class="container">
+        <h1>Teachers</h1>
+        
+        <div th:replace="~{fragments/messages :: messages}"></div>
+        
+        <div sec:authorize="hasRole('TEACHER')">
+            <a href="/teachers/new" class="btn">Add New Teacher</a>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Specialization</th>
+                    <th>Department</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="teacher : ${teachers}">
+                    <td th:text="${teacher.employeeId}"></td>
+                    <td th:text="${teacher.firstName + ' ' + teacher.lastName}"></td>
+                    <td th:text="${teacher.email}"></td>
+                    <td th:text="${teacher.specialization}"></td>
+                    <td th:text="${teacher.department?.name}"></td>
+                    <td>
+                        <a th:href="@{/teachers/{id}(id=${teacher.id})}" class="btn-small">View</a>
+                        <span sec:authorize="hasRole('TEACHER')">
+                            <a th:href="@{/teachers/{id}/edit(id=${teacher.id})}" class="btn-small">Edit</a>
+                            <a th:href="@{/teachers/{id}/delete(id=${teacher.id})}" class="btn-small btn-danger" 
+                               onclick="return confirm('Delete this teacher?');">Delete</a>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

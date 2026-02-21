@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students - SMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    
+    <div class="container">
+        <h1>Students</h1>
+        
+        <div th:replace="~{fragments/messages :: messages}"></div>
+        
+        <div sec:authorize="hasRole('TEACHER')">
+            <a href="/students/new" class="btn">Add New Student</a>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.studentId}"></td>
+                    <td th:text="${student.firstName + ' ' + student.lastName}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td th:text="${student.department?.name}"></td>
+                    <td>
+                        <a th:href="@{/students/{id}(id=${student.id})}" class="btn-small">View</a>
+                        <span sec:authorize="hasRole('TEACHER')">
+                            <a th:href="@{/students/{id}/edit(id=${student.id})}" class="btn-small">Edit</a>
+                            <a th:href="@{/students/{id}/delete(id=${student.id})}" class="btn-small btn-danger" 
+                               onclick="return confirm('Delete this student?');">Delete</a>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

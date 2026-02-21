@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: sms-postgres
+    environment:
+      POSTGRES_DB: smsdb
+      POSTGRES_USER: smsuser
+      POSTGRES_PASSWORD: smspassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - sms-network
+
+volumes:
+  postgres-data:
+
+networks:
+  sms-network:
+    driver: bridge

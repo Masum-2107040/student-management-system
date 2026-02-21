@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details - SMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    
+    <div class="container">
+        <h1>Student Details</h1>
+        
+        <div class="card">
+            <p><strong>Student ID:</strong> <span th:text="${student.studentId}"></span></p>
+            <p><strong>Name:</strong> <span th:text="${student.firstName + ' ' + student.lastName}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${student.email}"></span></p>
+            <p><strong>Phone:</strong> <span th:text="${student.phone}"></span></p>
+            <p><strong>Address:</strong> <span th:text="${student.address}"></span></p>
+            <p><strong>Department:</strong> <span th:text="${student.department?.name}"></span></p>
+        </div>
+        
+        <a href="/students" class="btn">Back to List</a>
+    </div>
+</body>
+</html>

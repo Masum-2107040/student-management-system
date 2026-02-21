@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <nav th:fragment="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="/dashboard" class="nav-brand">SMS</a>
+            <ul class="nav-menu">
+                <li><a href="/students">Students</a></li>
+                <li><a href="/teachers">Teachers</a></li>
+                <li><a href="/courses">Courses</a></li>
+                <li><a href="/departments">Departments</a></li>
+                <li>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-logout">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

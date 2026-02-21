@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Student Management System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    
+    <div class="container">
+        <h1>Dashboard</h1>
+        
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Students</h3>
+                <p>Manage student records</p>
+                <a href="/students" class="btn">View Students</a>
+            </div>
+            
+            <div class="card">
+                <h3>Teachers</h3>
+                <p>Manage teacher profiles</p>
+                <a href="/teachers" class="btn">View Teachers</a>
+            </div>
+            
+            <div class="card">
+                <h3>Courses</h3>
+                <p>Manage course information</p>
+                <a href="/courses" class="btn">View Courses</a>
+            </div>
+            
+            <div class="card">
+                <h3>Departments</h3>
+                <p>Manage departments</p>
+                <a href="/departments" class="btn">View Departments</a>
+            </div>
+        </div>
+        
+        <div class="user-info">
+            <p>Logged in as: <strong sec:authentication="name"></strong></p>
+            <p>Role: <strong sec:authentication="authorities"></strong></p>
+        </div>
+    </div>
+</body>
+</html>

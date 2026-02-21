@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - SMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    
+    <div class="container">
+        <h1>Courses</h1>
+        
+        <div th:replace="~{fragments/messages :: messages}"></div>
+        
+        <div sec:authorize="hasRole('TEACHER')">
+            <a href="/courses/new" class="btn">Add New Course</a>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Credits</th>
+                    <th>Department</th>
+                    <th>Teacher</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.code}"></td>
+                    <td th:text="${course.name}"></td>
+                    <td th:text="${course.credits}"></td>
+                    <td th:text="${course.department?.name}"></td>
+                    <td th:text="${course.teacher != null ? course.teacher.firstName + ' ' + course.teacher.lastName : 'N/A'}"></td>
+                    <td>
+                        <span sec:authorize="hasRole('TEACHER')">
+                            <a th:href="@{/courses/{id}/edit(id=${course.id})}" class="btn-small">Edit</a>
+                            <a th:href="@{/courses/{id}/delete(id=${course.id})}" class="btn-small btn-danger" 
+                               onclick="return confirm('Delete this course?');">Delete</a>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
