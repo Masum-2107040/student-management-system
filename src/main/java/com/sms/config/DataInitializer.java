@@ -9,10 +9,12 @@ import com.sms.service.StudentService;
 import com.sms.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Profile("!test")
 public class DataInitializer implements CommandLineRunner {
     
     private final DepartmentService departmentService;
